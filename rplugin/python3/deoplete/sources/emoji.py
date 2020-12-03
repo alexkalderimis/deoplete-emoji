@@ -33,8 +33,7 @@ class Source(Base):
 
     def gather_candidates(self, context):
         max_edition = self.get_var('max_emoji_edition')
-        query = QUERY if max_edition is None else MAX_EDITION_QUERY
-        params = tuple() if max_edition is None else (max_edition,)
+        query, params = (QUERY, ()) if max_edition is None else (MAX_EDITION_QUERY, (max_edition,))
 
         with closing(sqlite.connect(DB_FILE)) as conn:
             c = conn.cursor()
